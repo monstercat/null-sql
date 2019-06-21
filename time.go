@@ -58,7 +58,7 @@ func NullDateIsEqual(a, b NullTime) bool {
 		return false
 	}
 
-	return DateIsEqual(a.Time, b.Time)
+	return dateIsEqual(a.Time, b.Time)
 }
 
 func NullTimeIsEqual(a, b NullTime) bool {
@@ -73,6 +73,6 @@ func NullTimeIsEqual(a, b NullTime) bool {
 	return a.Time.Unix() == b.Time.Unix()
 }
 
-func DateIsEqual(a, b time.Time) bool {
+func dateIsEqual(a, b time.Time) bool {
 	return a.Year() == b.Year() && a.Month() == b.Month() && a.YearDay() == b.YearDay()
 }

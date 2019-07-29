@@ -50,6 +50,10 @@ func (i NullInt) Value() (driver.Value, error) {
 	return i.Int64, nil
 }
 
+func NewNullInt(a int) NullInt {
+	return NullInt{int64(a), true}
+}
+
 func NullIntIsEqual(a, b NullInt) bool {
 	if !a.Valid && !b.Valid {
 		return true

@@ -22,13 +22,15 @@ func (s NullString) MarshalJSON() ([]byte, error) {
 }
 
 func (s *NullString) UnmarshalJSON(bt []byte) error {
-	str := string(bt)
-	if len(str) < 3 {
+	var str string
+	if err := json.Unmarshal(bt, &str); err != nil {
+		return err
+	}
+	if len(str) < 1 {
 		s.Valid = false
 		return nil
 	}
-
-	s.String = str[1 : len(str)-1]
+	s.String = str
 	s.Valid = true
 	return nil
 }

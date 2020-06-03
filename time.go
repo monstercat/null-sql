@@ -19,6 +19,15 @@ func (nt NullTime) MarshalJSON() ([]byte, error) {
 
 func (nt *NullTime) UnmarshalJSON(bt []byte) error {
 	str := string(bt)
+
+	// If the byte array is the characters for "null"
+	// then we should ignore it.
+	if str == "null" {
+		nt.Valid = false
+		nt.Time = time.Time{}
+		return nil
+	}
+
 	str = str[1 : len(str)-1]
 
 	tm, err := time.Parse(time.RFC3339, str)

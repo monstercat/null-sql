@@ -14,7 +14,7 @@ func (nt NullTime) MarshalJSON() ([]byte, error) {
 	if nt.Valid {
 		return json.Marshal(nt.Time.Format(time.RFC3339))
 	}
-	return json.Marshal(time.Time{}.Format(time.RFC3339))
+	return []byte("null"), nil
 }
 
 func (nt *NullTime) UnmarshalJSON(bt []byte) error {
@@ -67,7 +67,7 @@ func NullDateIsEqual(a, b NullTime) bool {
 		return false
 	}
 
-	return dateIsEqual(a.Time, b.Time)
+	return dateIsEqual(a.Time, b.Time.In(a.Time.Location()))
 }
 
 func NullTimeIsEqual(a, b NullTime) bool {
